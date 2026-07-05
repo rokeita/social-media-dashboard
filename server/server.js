@@ -37,9 +37,9 @@ app.get('/api/test', (req, res) => {
 
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
-// app.use('/api/dashboard', require('./routes/dashboardRoutes'));
-// app.use('/api/analytics', require('./routes/analyticsRoutes'));
-// app.use('/api/posts', require('./routes/postsRoutes'));
+app.use('/api/dashboard', require('./routes/dashboardRoutes'));
+app.use('/api/analytics', require('./routes/analyticsRoutes'));
+app.use('/api/posts', require('./routes/postsRoutes'));
 // app.use('/api/reports', require('./routes/reportsRoutes'));
 // app.use('/api/notifications', require('./routes/notificationRoutes'));
 
