@@ -18,10 +18,10 @@ const dashboardService = {
         `${API_URL}/dashboard/summary`,
         getAuthHeader()
       );
-      return response.data;
+      return response.data.data;
     } catch (error) {
       console.error('Error fetching dashboard summary:', error);
-      throw error;
+      throw error.response?.data?.message || error.message || 'Failed to fetch summary';
     }
   },
 
@@ -31,10 +31,10 @@ const dashboardService = {
         `${API_URL}/dashboard/cards`,
         getAuthHeader()
       );
-      return response.data;
+      return response.data.data;
     } catch (error) {
       console.error('Error fetching cards:', error);
-      throw error;
+      throw error.response?.data?.message || error.message || 'Failed to fetch cards';
     }
   },
 
@@ -44,10 +44,36 @@ const dashboardService = {
         `${API_URL}/dashboard/overview`,
         getAuthHeader()
       );
-      return response.data;
+      return response.data.data;
     } catch (error) {
       console.error('Error fetching overview:', error);
-      throw error;
+      throw error.response?.data?.message || error.message || 'Failed to fetch overview';
+    }
+  },
+
+  getStats: async (startDate, endDate) => {
+    try {
+      const response = await axios.get(
+        `${API_URL}/dashboard/stats?startDate=${startDate}&endDate=${endDate}`,
+        getAuthHeader()
+      );
+      return response.data.data;
+    } catch (error) {
+      console.error('Error fetching stats:', error);
+      throw error.response?.data?.message || error.message || 'Failed to fetch stats';
+    }
+  },
+
+  getEngagement: async (days = 30) => {
+    try {
+      const response = await axios.get(
+        `${API_URL}/dashboard/engagement?days=${days}`,
+        getAuthHeader()
+      );
+      return response.data.data;
+    } catch (error) {
+      console.error('Error fetching engagement:', error);
+      throw error.response?.data?.message || error.message || 'Failed to fetch engagement';
     }
   }
 };
