@@ -35,8 +35,8 @@ app.get('/api/test', (req, res) => {
   res.json({ message: '✅ Server is running' });
 });
 
-// Routes (to be added)
-// app.use('/api/auth', require('./routes/authRoutes'));
+// Routes
+app.use('/api/auth', require('./routes/authRoutes'));
 // app.use('/api/dashboard', require('./routes/dashboardRoutes'));
 // app.use('/api/analytics', require('./routes/analyticsRoutes'));
 // app.use('/api/posts', require('./routes/postsRoutes'));
@@ -47,6 +47,7 @@ app.get('/api/test', (req, res) => {
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(err.status || 500).json({
+    success: false,
     message: err.message || 'Internal Server Error',
     status: err.status || 500
   });
@@ -54,7 +55,7 @@ app.use((err, req, res, next) => {
 
 // 404 handler
 app.use((req, res) => {
-  res.status(404).json({ message: 'Route not found' });
+  res.status(404).json({ success: false, message: 'Route not found' });
 });
 
 // Start Server
