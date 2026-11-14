@@ -218,7 +218,8 @@ exports.getEngagementAnalytics = async (req, res) => {
 
     // Calculate summary
     const totalEngagement = engagementData.reduce((sum, record) => sum + record.totalEngagement, 0);
-    const avgEngagement = engagementData.reduce((sum, record) => sum + record.avgEngagement, 0) / (engagementData.length || 1);
+    const totalPosts = engagementData.reduce((sum, record) => sum + record.postCount, 0);
+    const avgEngagement = totalEngagement / (totalPosts || 1);
 
     successResponse(res, {
       analytics: {
