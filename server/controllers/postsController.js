@@ -76,7 +76,7 @@ exports.getPost = async (req, res) => {
 
     // Verify ownership
     const account = await SocialAccount.findById(post.socialAccountId);
-    if (account.userId.toString() !== userId) {
+    if (!account || account.userId.toString() !== userId) {
       return errorResponse(res, 'Not authorized to access this post', 403);
     }
 
@@ -211,7 +211,7 @@ exports.updatePost = async (req, res) => {
 
     // Verify ownership
     const account = await SocialAccount.findById(post.socialAccountId);
-    if (account.userId.toString() !== userId) {
+    if (!account || account.userId.toString() !== userId) {
       return errorResponse(res, 'Not authorized to update this post', 403);
     }
 
@@ -257,7 +257,7 @@ exports.deletePost = async (req, res) => {
 
     // Verify ownership
     const account = await SocialAccount.findById(post.socialAccountId);
-    if (account.userId.toString() !== userId) {
+    if (!account || account.userId.toString() !== userId) {
       return errorResponse(res, 'Not authorized to delete this post', 403);
     }
 
